@@ -14,12 +14,12 @@ public class CryptoRW {
     private static final String trans = "AES/CBC/PKCS5Padding";
     private static final byte[] key = "qp1z8&nM*Ax4Oo0!".getBytes();
 
-    public boolean fileExists() {
+    boolean fileExists() {
         File file = new File(filename);
         return file.exists() && !file.isDirectory();
     }
 
-    public void cryptoWrite(ProfileTable profileMap, TagTable tagMap, Trie trie, int id) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException, IllegalBlockSizeException, IOException {
+    void cryptoWrite(ProfileTable profileMap, TagTable tagMap, Trie trie, int id) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException, IllegalBlockSizeException, IOException {
         SecretKeySpec secretKeySpec = new SecretKeySpec(key, algo);
         Cipher cipher = Cipher.getInstance(trans);
         cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, new IvParameterSpec(new byte[16]));
@@ -42,7 +42,7 @@ public class CryptoRW {
         objOut.close();
     }
 
-    public void cryptoRead(UIController uiController) throws IOException, ClassNotFoundException, IllegalBlockSizeException, BadPaddingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException {
+    void cryptoRead(UIController uiController) throws IOException, ClassNotFoundException, IllegalBlockSizeException, BadPaddingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException {
         SecretKeySpec secretKeySpec = new SecretKeySpec(key, algo);
         Cipher cipher = Cipher.getInstance(trans);
         cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, new IvParameterSpec(new byte[16]));
